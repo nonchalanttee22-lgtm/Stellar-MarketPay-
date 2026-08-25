@@ -1,5 +1,10 @@
 const nextJest = require("next/jest");
 
+// Pin mock-mode flag so snapshot tests render identically to CI (which sets
+// NEXT_PUBLIC_USE_CONTRACT_MOCK=true in the frontend job). Set here so the
+// next/jest SWC transform inlines the same value in local and CI runs.
+process.env.NEXT_PUBLIC_USE_CONTRACT_MOCK = "true";
+
 const createJestConfig = nextJest({ dir: "./" });
 
 // Pin mock-mode env so snapshot tests render deterministic UI
