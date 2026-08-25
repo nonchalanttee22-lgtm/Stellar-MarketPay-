@@ -2,6 +2,9 @@ const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({ dir: "./" });
 
+// Pin mock-mode env so snapshot tests render deterministic UI
+process.env.NEXT_PUBLIC_USE_CONTRACT_MOCK = "true";
+
 /** @type {import('jest').Config} */
 const customJestConfig = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.tsx"],
@@ -11,7 +14,7 @@ const customJestConfig = {
     "^@/(.*)$": "<rootDir>/$1",
   },
   transformIgnorePatterns: [
-    "/node_modules/(?!(@react-pdf|@react-pdf/renderer|react-pdf)/)",
+    "node_modules/(?!(isomorphic-dompurify|dompurify|@exodus|uuid|@react-pdf|@react-pdf/renderer|react-pdf)/)",
   ],
 };
 
